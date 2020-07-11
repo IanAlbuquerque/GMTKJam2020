@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Defenders
   - Explosion
+  - bg
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - bg
   - 
   - 
   - 
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Bg
+    uniqueID: 3515818437
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
