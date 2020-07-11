@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class GameController : MonoBehaviour
 
     public int score = 0;
     public int level = 1;
+
+    public int cityCounter = 6;
+
     public float enemyMissileSpeed = 5f;
     [SerializeField] private float enemyMissileSpeedMultiplier = .25f;
 
@@ -41,6 +45,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentMissilesLoaded = 10;
+        playerMissilesLeft -= 10;
 
         myEnemyMissileSpawner = GameObject.FindObjectOfType<EnemyMissileSpawner>();
 
@@ -60,6 +66,10 @@ public class GameController : MonoBehaviour
             Debug.Log("Cabou o jogo");
             RoundisOver = true;
             StartCoroutine(EndofRound());
+        }
+        if(cityCounter <= 0)
+        {
+            SceneManager.LoadScene("The End");
         }
     }
 
