@@ -9,17 +9,21 @@ public class EnemyMissile : MonoBehaviour
     GameObject[] defenders;
 
     Vector3 target;
+    float newspeed;
+    
+
     // Start is called before the first frame update
     void Start()
     {
         defenders = GameObject.FindGameObjectsWithTag("Defenders");
         target = defenders[Random.Range(0, defenders.Length)].transform.position;
+        newspeed = CompensateSpeed(speed);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target, newspeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,6 +39,13 @@ public class EnemyMissile : MonoBehaviour
             MissileExplode();
             //Destroy(collision.gameObject);
         }
+    }
+
+    private float CompensateSpeed(float speed)
+    {
+        Vector3 velocity = (target - this.transform.position).normalized * speed;
+        Vector3 velocityDown = Vector3.Project(velocity, Vector3.down);
+        return speed / velocityDown.magnitude;
     }
 
     private void MissileExplode()
