@@ -14,8 +14,9 @@ public class GameController : MonoBehaviour
     public float enemyMissileSpeed = 5f;
     [SerializeField] private float enemyMissileSpeedMultiplier = .25f;
 
+    public int currentMissilesLoaded = 0;
     public int playerMissilesLeft = 30;
-    private int enemyMissilesThisRound = 20;
+    public int enemyMissilesThisRound = 20;
     private int enemyMissilesLeft = 0;
     [SerializeField] private int missileEndOfRound = 5;
     [SerializeField] private int citiesEndOfRound = 100;
@@ -26,6 +27,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI myScoreText;
     [SerializeField] private TextMeshProUGUI myLevelText;
     [SerializeField] private TextMeshProUGUI myMissileLeftText;
+    [SerializeField] private TextMeshProUGUI currentMissilesLoadedLeftText;
 
     [SerializeField] private TextMeshProUGUI countdownText;
 
@@ -39,11 +41,13 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         myEnemyMissileSpawner = GameObject.FindObjectOfType<EnemyMissileSpawner>();
 
         UpdateScoreText();
         UpdateLevelText();
         UpdateMissileLeftText();
+        UpdatecurrentMissileLoadedText();
 
         StartRound();
     }
@@ -62,11 +66,19 @@ public class GameController : MonoBehaviour
     public void UpdateMissileLeftText()
     {
         myMissileLeftText.text = "Missiles Left: " + playerMissilesLeft;
+        UpdatecurrentMissileLoadedText();
     }
+
     public void UpdateLevelText()
     {
         myLevelText.text = "Level: " + level;
     }
+
+    public void UpdatecurrentMissileLoadedText()
+    {
+        currentMissilesLoadedLeftText.text = "Missile Loaded: " + currentMissilesLoaded;
+    }
+
     public void UpdateScoreText()
     {
         myScoreText.text = "Score: " + score;
@@ -82,6 +94,46 @@ public class GameController : MonoBehaviour
     public void EnemyMissileDestroyed()
     {
         enemyMissilesLeft--;
+    }
+
+    public void PlayerFiredMissile()
+    {
+        if(currentMissilesLoaded > 0)
+        {
+            currentMissilesLoaded--;
+        }
+        if(currentMissilesLoaded == 0)
+        {
+            if (playerMissilesLeft >= 10)
+            {
+                currentMissilesLoaded = 10;
+                playerMissilesLeft -= 10;
+            }
+            else
+            {
+                currentMissilesLoaded = playerMissilesLeft;
+                playerMissilesLeft = 0;
+            }
+        }
+
+        UpdateMissileLeftText();
+    }
+
+    public void MissileLauncherHit()
+    {
+        playerMissilesLeft -= 10;
+        if(playerMissilesLeft >= 10)
+        {
+            currentMissilesLoaded = 10;
+            playerMissilesLeft -= 10;
+        }
+        else
+        {
+            currentMissilesLoaded = playerMissilesLeft;
+            playerMissilesLeft = 0;
+        }
+        UpdateMissileLeftText();
+        UpdatecurrentMissileLoadedText();
     }
 
     public void StartRound()
@@ -123,6 +175,9 @@ public class GameController : MonoBehaviour
         //new round setting
         playerMissilesLeft = 30;
         enemyMissileSpeed *= enemyMissileSpeedMultiplier;
+
+        currentMissilesLoaded = 10;
+        playerMissilesLeft -= 10;
 
         StartRound();
 

@@ -24,11 +24,11 @@ public class CursorController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && myGameController.playerMissilesLeft > 0)
+        if(Input.GetMouseButtonDown(0) && myGameController.currentMissilesLoaded > 0)
         {
             Instantiate(missilePrefab, missileLauncherInstance.transform.position, Quaternion.identity);
-            myGameController.playerMissilesLeft--;
-            myGameController.UpdateMissileLeftText();
+            //myGameController.playerMissilesLeft--;
+            myGameController.PlayerFiredMissile();
         }
     }
 }

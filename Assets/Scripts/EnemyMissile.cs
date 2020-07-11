@@ -29,6 +29,11 @@ public class EnemyMissile : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, target, newspeed * Time.deltaTime);
+        if(transform.position == target)
+        {
+            myGameController.EnemyMissileDestroyed();
+            MissileExplode();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -37,6 +42,11 @@ public class EnemyMissile : MonoBehaviour
         {
             myGameController.EnemyMissileDestroyed();
             MissileExplode();
+            if(collision.GetComponent<MissileLauncher>() != null)
+            {
+                myGameController.MissileLauncherHit();
+                return;
+            }
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Explosion")
