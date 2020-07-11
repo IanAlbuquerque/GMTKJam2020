@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour
 
     public int score = 0;
     public int level = 1;
+    public float enemyMissileSpeed = 5f;
+    [SerializeField] private float enemyMissileSpeedMultiplier = .25f;
+
     public int playerMissilesLeft = 30;
     private int enemyMissilesThisRound = 20;
     private int enemyMissilesLeft = 0;
@@ -24,11 +27,14 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI myLevelText;
     [SerializeField] private TextMeshProUGUI myMissileLeftText;
 
+    [SerializeField] private TextMeshProUGUI countdownText;
+
     [SerializeField] private TextMeshProUGUI missileBonusText;
     [SerializeField] private TextMeshProUGUI citiesBonusText;
     [SerializeField] private TextMeshProUGUI totalBonusText;
 
     GameObject[] Casa;
+    private bool RoundisOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -45,11 +51,12 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* if(enemyMissilesLeft <= 0)
+        if(enemyMissilesLeft <= 0 && !RoundisOver )
         {
             Debug.Log("Cabou o jogo");
+            RoundisOver = true;
             StartCoroutine(EndofRound());
-        }*/
+        }
     }
 
     public void UpdateMissileLeftText()
@@ -80,6 +87,7 @@ public class GameController : MonoBehaviour
     public void StartRound()
     {
         myEnemyMissileSpawner.missilesToSpawnThisRound = enemyMissilesThisRound;
+        enemyMissilesLeft = enemyMissilesThisRound;
         myEnemyMissileSpawner.StartRound();
     }
 
@@ -99,6 +107,28 @@ public class GameController : MonoBehaviour
         totalBonusText.text = "Total Score:" + totalBonus;
 
         score += totalBonus;
+        UpdateScoreText();
+
+        countdownText.text = "3";
+        yield return new WaitForSeconds(1f);
+        countdownText.text = "2";
+        yield return new WaitForSeconds(1f);
+        countdownText.text = "1";
+        yield return new WaitForSeconds(1f);
+
+        EndPainel.SetActive(false);
+
+        RoundisOver = false;
+
+        //new round setting
+        playerMissilesLeft = 30;
+        enemyMissileSpeed *= enemyMissileSpeedMultiplier;
+
+        StartRound();
+
+        UpdateLevelText();
+        UpdateMissileLeftText();
+
     }
 
 }

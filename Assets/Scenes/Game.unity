@@ -2553,6 +2553,7 @@ MonoBehaviour:
   myScoreText: {fileID: 1735023062}
   myLevelText: {fileID: 894767850}
   myMissileLeftText: {fileID: 449921992}
+  countdownText: {fileID: 1141396481}
   missileBonusText: {fileID: 552259104}
   citiesBonusText: {fileID: 798271118}
   totalBonusText: {fileID: 75821960}

@@ -8,6 +8,8 @@ public class EnemyMissile : MonoBehaviour
     [SerializeField] private GameObject explosionPrefab;
     GameObject[] defenders;
 
+    private GameController myGameController;
+
     Vector3 target;
     float newspeed;
     
@@ -15,9 +17,12 @@ public class EnemyMissile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myGameController = GameObject.FindObjectOfType<GameController>();
         defenders = GameObject.FindGameObjectsWithTag("Defenders");
         target = defenders[Random.Range(0, defenders.Length)].transform.position;
         newspeed = CompensateSpeed(speed);
+
+        speed = myGameController.enemyMissileSpeed;
     }
 
     // Update is called once per frame
@@ -30,12 +35,13 @@ public class EnemyMissile : MonoBehaviour
     {
         if(collision.tag == "Defenders")
         {
+            myGameController.EnemyMissileDestroyed();
             MissileExplode();
             Destroy(collision.gameObject);
         }
         else if (collision.tag == "Explosion")
         {
-            FindObjectOfType<GameController>().AddMissileDestroyedScore();
+            myGameController.AddMissileDestroyedScore();
             MissileExplode();
             //Destroy(collision.gameObject);
         }
