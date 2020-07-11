@@ -31,8 +31,9 @@ public class EnemyMissile : MonoBehaviour
         }
         else if (collision.tag == "Explosion")
         {
+            FindObjectOfType<GameController>().AddMissileDestroyedScore();
             MissileExplode();
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
         }
     }
 
