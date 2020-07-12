@@ -111,7 +111,6 @@ public class GameController : MonoBehaviour
 
     public void GreaterExplosion()
     {
-        GreaterExplosion
         explosionTime.destroyTime += .2f;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
