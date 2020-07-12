@@ -1,0 +1,20 @@
+
+pod.png
+size: 1056,381
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+head
+  rotate: true
+  xy: 2, 2
+  size: 321, 399
+  orig: 321, 399
+  offset: 0, 0
+  index: -1
+tentacle
+  rotate: true
+  xy: 2, 325
+  size: 54, 1052
+  orig: 54, 1052
+  offset: 0, 0
+  index: -1
