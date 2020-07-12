@@ -7,6 +7,7 @@ TagManager:
   - Defenders
   - Explosion
   - bg
+  - Selectable
   layers:
   - Default
   - TransparentFX
