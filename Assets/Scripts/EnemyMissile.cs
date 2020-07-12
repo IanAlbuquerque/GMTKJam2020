@@ -35,7 +35,14 @@ public class EnemyMissile : MonoBehaviour
     void Update()
     {
         transform.position = Vector2.MoveTowards(transform.position, target, newspeed * Time.deltaTime);
-        if(transform.position == target)
+
+        Vector3 dir = (target - transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion rotation = new Quaternion();
+        rotation.eulerAngles = new Vector3(0, 0, angle + 90);
+        transform.rotation = rotation;
+
+        if (transform.position == target)
         {
             myGameController.EnemyMissileDestroyed();
             MissileExplode();

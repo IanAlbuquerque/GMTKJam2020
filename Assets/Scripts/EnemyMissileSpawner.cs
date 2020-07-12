@@ -43,6 +43,10 @@ public class EnemyMissileSpawner : MonoBehaviour
         {
             float randomX = Random.Range(minX, maxX);
 
+            Vector3 dir = missilePrefab.transform.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
             Instantiate(missilePrefab, new Vector3(randomX, yValue + Yscreen, 0), Quaternion.identity);
 
             missilesToSpawnThisRound--;

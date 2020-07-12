@@ -1054,6 +1054,8 @@ MonoBehaviour:
   missilePrefab: {fileID: 7581223688631761636, guid: d60a3a3fc53ea634cb89c220ab14a440,
     type: 3}
   missileLauncherInstance: {fileID: 945795096}
+  missileLauncherInstance2: {fileID: 16805852}
+  missileLauncherInstance3: {fileID: 464141268}
   cursorTexture: {fileID: 2800000, guid: 648c753da644f0f4bb6dffd5b086c01a, type: 3}
 --- !u!20 &519420031
 Camera:
@@ -2710,6 +2712,7 @@ MonoBehaviour:
   currentMissilesLoaded: 0
   playerMissilesLeft: 30
   enemyMissilesThisRound: 20
+  enemyMissilesLeft: 0
   missileEndOfRound: 5
   citiesEndOfRound: 100
   myScoreText: {fileID: 1735023062}
@@ -2733,6 +2736,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2030997100
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2030997102}
+  - component: {fileID: 2030997101}
+  m_Layer: 0
+  m_Name: _FungusState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2030997101
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030997100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61dddfdc5e0e44ca298d8f46f7f5a915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedFlowchart: {fileID: 0}
+--- !u!4 &2030997102
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030997100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2045188122
 GameObject:
