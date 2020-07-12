@@ -19,7 +19,7 @@ public class MenuManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("GD Playgroud 1");
+        SceneManager.LoadScene("GD Playground 1");
     }
 
     public void MainMenu()
