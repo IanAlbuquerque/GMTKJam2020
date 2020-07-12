@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7077684446434903839}
   - component: {fileID: 7162855454114031908}
   - component: {fileID: 7104034426889510238}
-  - component: {fileID: 245111452224569464}
+  - component: {fileID: 4106353044255603669}
   m_Layer: 0
   m_Name: Casa
   m_TagString: Defenders
@@ -109,7 +109,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 14}
   m_EdgeRadius: 0
---- !u!114 &245111452224569464
+--- !u!114 &4106353044255603669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c51e88dc1fb75b46b8d9d03e777e423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  casaViva: {fileID: 0}
+  casaMorta: {fileID: 0}

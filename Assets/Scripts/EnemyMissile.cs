@@ -53,6 +53,8 @@ public class EnemyMissile : MonoBehaviour
     {
         if(collision.tag == "Defenders")
         {
+            CasaController casaController = collision.gameObject.GetComponent<CasaController>();
+            casaController.SetMorto();
             myGameController.EnemyMissileDestroyed();
             MissileExplode();
             if(collision.GetComponent<MissileLauncher>() != null)
