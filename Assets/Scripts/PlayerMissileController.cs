@@ -18,7 +18,7 @@ public class PlayerMissileController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, target, (speed + GameController.speedModifier) * Time.deltaTime);
         if (transform.position == (Vector3)target)
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
