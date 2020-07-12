@@ -47,7 +47,10 @@ public class EnemyMissileSpawner : MonoBehaviour
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-            Instantiate(missilePrefab, new Vector3(randomX, yValue + Yscreen, 0), Quaternion.identity);
+            Vector3 spawnPosition = new Vector3(randomX, yValue + Yscreen, 0);
+            GameObject missile = Instantiate(missilePrefab, new Vector3(randomX, yValue + Yscreen, 0), Quaternion.identity);
+            EnemyMissile enemyMissile = missile.GetComponent<EnemyMissile>();
+            enemyMissile.StartingLocation = spawnPosition;
 
             missilesToSpawnThisRound--;
 

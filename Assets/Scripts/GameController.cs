@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     public int cityCounter = 6;
 
     public float enemyMissileSpeed = 5f;
-    [SerializeField] private float enemyMissileSpeedMultiplier = .25f;
+    [SerializeField] private AnimationCurve enemyMissileSpeedMultiplierCurve;
 
     public int currentMissilesLoaded = 0;
     public int playerMissilesLeft;
@@ -54,14 +54,21 @@ public class GameController : MonoBehaviour
     GameObject[] Casa;
     private bool RoundisOver = false;
 
+    public static bool IsPaused = false;
+
+    public static float enemySpeedToUse;
+
     // Start is called before the first frame update
     void Start()
     {
+        maxAmmo = this.playerMissilesLeft;
         currentMissilesLoaded = 10;
         playerMissilesLeft -= 10;
 
         myEnemyMissileSpawner = GameObject.FindObjectOfType<EnemyMissileSpawner>();
         //myPlayerController = GetComponent<PlayerMissileController>();
+        
+        GameController.enemySpeedToUse = this.enemyMissileSpeed;
 
         UpdateScoreText();
         UpdateLevelText();
@@ -88,31 +95,39 @@ public class GameController : MonoBehaviour
 
     public void AddMissileAmmo()
     {
+        GameController.IsPaused = false;
         maxAmmo += 2;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
+        PrepareRound();
     }
 
     public void PlayerAddSpeed()
     {
+        GameController.IsPaused = false;
         GameController.speedMod += 1;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
+        PrepareRound();
     }
 
     public void DelayMonsters()
     {
+        GameController.IsPaused = false;
         delay = 0.2f;
         myEnemyMissileSpawner.delayBetweenMissiles += delay;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
+        PrepareRound();
     }
 
     public void GreaterExplosion()
     {
+        GameController.IsPaused = false;
         GameController.explosionMod += .2f;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
+        PrepareRound();
     }
 
     public void UpdateMissileLeftText()
@@ -128,7 +143,7 @@ public class GameController : MonoBehaviour
 
     public void UpdatecurrentMissileLoadedText()
     {
-        currentMissilesLoadedLeftText.text = currentMissilesLoaded.ToString();
+        currentMissilesLoadedLeftText.text = (currentMissilesLoaded + playerMissilesLeft).ToString();
     }
 
     public void UpdateScoreText()
@@ -200,6 +215,7 @@ public class GameController : MonoBehaviour
     public IEnumerator EndofRound()
     {
         yield return new WaitForSeconds(.5f);
+        GameController.IsPaused = true;
         EndPainel.SetActive(true);
         Time.timeScale = 0;
         int missileBonus = (playerMissilesLeft + currentMissilesLoaded) + missileEndOfRound;
@@ -258,16 +274,20 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countdownText.text = "1";
         yield return new WaitForSeconds(1f);*/
+    }
 
-
+    private void PrepareRound()
+    {
         RoundisOver = false;
 
         //new round setting
         playerMissilesLeft = maxAmmo;
-        enemyMissileSpeed += enemyMissileSpeedMultiplier;
+        enemyMissileSpeed += this.enemyMissileSpeedMultiplierCurve.Evaluate(level);
+        GameController.enemySpeedToUse = this.enemyMissileSpeed;
 
         currentMissilesLoaded = 10;
-        playerMissilesLeft = maxAmmo - 10;
+        playerMissilesLeft -= 10;
+        enemyMissilesThisRound += 2;
 
         StartRound();
         level++;

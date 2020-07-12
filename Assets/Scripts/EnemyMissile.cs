@@ -15,20 +15,39 @@ public class EnemyMissile : MonoBehaviour
     float newspeed;
 
     private float randomTimer;
-    
+    public Vector3 StartingLocation { get; set; }
+
 
     // Start is called before the first frame update
     void Start()
     {
         myGameController = GameObject.FindObjectOfType<GameController>();
         defenders = GameObject.FindGameObjectsWithTag("Defenders");
-        target = defenders[Random.Range(0, defenders.Length)].transform.position;
-        newspeed = CompensateSpeed(speed);
+        target = GetTarget();
+        newspeed = Random.Range(GameController.enemySpeedToUse/2.0f, GameController.enemySpeedToUse);
+            //CompensateSpeed(GameController.enemySpeedToUse);
+        Debug.Log(GameController.enemySpeedToUse);
+
+        Vector3 targetXPosition = new Vector3(this.target.x, StartingLocation.y, 0.0f);
+        this.transform.position = Vector3.Lerp(StartingLocation, targetXPosition, 0.5f);
 
         speed = myGameController.enemyMissileSpeed;
 
         randomTimer = Random.Range(0.1f, 50f);
         Invoke("SplitMissile", randomTimer);
+    }
+
+    private Vector3 GetTarget()
+    {
+        GameObject defender;
+        while (true)
+        {
+            defender = defenders[Random.Range(0, defenders.Length)];
+            bool isDestroyed = defender.GetComponent<DestroyController>().IsDestroyed;
+            if (!isDestroyed)
+                break;
+        }
+        return defender.transform.position;
     }
 
     // Update is called once per frame
@@ -55,6 +74,9 @@ public class EnemyMissile : MonoBehaviour
         {
             CasaController casaController = collision.gameObject.GetComponent<CasaController>();
             casaController.SetMorto();
+            DestroyController destroyController = collision.gameObject.GetComponent<DestroyController>();
+            destroyController.IsDestroyed = true;
+            
             myGameController.EnemyMissileDestroyed();
             MissileExplode();
             if(collision.GetComponent<MissileLauncher>() != null)
@@ -73,11 +95,11 @@ public class EnemyMissile : MonoBehaviour
         }
     }
 
-    private float CompensateSpeed(float speed)
+    private float CompensateSpeed(float input)
     {
-        Vector3 velocity = (target - this.transform.position).normalized * speed;
+        Vector3 velocity = (target - this.transform.position).normalized * input;
         Vector3 velocityDown = Vector3.Project(velocity, Vector3.down);
-        return speed / velocityDown.magnitude;
+        return input / velocityDown.magnitude;
     }
 
     private void MissileExplode()
