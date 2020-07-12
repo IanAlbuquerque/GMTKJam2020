@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.7
-  explosionPrefab: {fileID: 9118023681167077072, guid: 4c06d52e823c63c4b99d56ca637d7e96,
+  explosionPrefab: {fileID: 9118023681167077072, guid: 98b4ef412207d1b4e89a5eeb8cb6aa31,
     type: 3}
   missilePrefab: {fileID: 6089673431189428086}
 --- !u!61 &8492101588616545069
@@ -162,7 +162,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: d568c14ebace88d45a56f709fda82324, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
   Mute: 0
