@@ -157,12 +157,38 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         EndPainel.SetActive(true);
-        int missileBonus = playerMissilesLeft * missileEndOfRound;
+        int missileBonus = (playerMissilesLeft + currentMissilesLoaded) * missileEndOfRound;
 
         CasaController[] casas = GameObject.FindObjectsOfType<CasaController>();
         int cityBonus = casas.Length * citiesEndOfRound;
 
         int totalBonus = missileBonus * cityBonus;
+
+        if (level >= 3 && level < 5)
+        {
+            totalBonus *= 2;
+        }
+
+        else if (level >= 5 && level < 7)
+        {
+            totalBonus *= 3;
+        }
+
+        else if (level >= 7 && level < 9)
+        {
+            totalBonus *= 4;
+        }
+
+        else if (level >= 9 && level < 11)
+        {
+            totalBonus *= 5;
+        }
+
+        else if (level >= 11)
+        {
+            totalBonus *= 6;
+        }
+
 
         missileBonusText.text = "Left Missile Bonus: " + missileBonus;
         citiesBonusText.text = "Left Cities Bonus: " + cityBonus;
@@ -190,7 +216,7 @@ public class GameController : MonoBehaviour
         playerMissilesLeft -= 10;
 
         StartRound();
-
+        level++;
         UpdateLevelText();
         UpdateMissileLeftText();
 
