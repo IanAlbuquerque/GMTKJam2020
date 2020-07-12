@@ -148,6 +148,7 @@ public class GameController : MonoBehaviour
     public void EnemyMissileDestroyed()
     {
         enemyMissilesLeft--;
+        
     }
 
     public void PlayerFiredMissile()
