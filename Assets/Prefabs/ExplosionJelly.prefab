@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -7907103269331144562}
   - component: {fileID: 117227239589207880}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: ExplosionJelly
   m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,7 +154,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1418043933409350722, guid: f97b60d9a17e94543b1f12a549c99353,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: d231f9295fddf1545b6f83a21f6267d1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2b8d9154832415b439fa08c41a8a815a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
