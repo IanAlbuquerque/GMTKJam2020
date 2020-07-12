@@ -6,12 +6,15 @@ public class EnemyMissile : MonoBehaviour
 {
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject missilePrefab;
     GameObject[] defenders;
 
     private GameController myGameController;
 
     Vector3 target;
     float newspeed;
+
+    private float randomTimer;
     
 
     // Start is called before the first frame update
@@ -23,6 +26,9 @@ public class EnemyMissile : MonoBehaviour
         newspeed = CompensateSpeed(speed);
 
         speed = myGameController.enemyMissileSpeed;
+
+        randomTimer = Random.Range(0.1f, 50f);
+        Invoke("SplitMissile", randomTimer);
     }
 
     // Update is called once per frame
@@ -69,5 +75,16 @@ public class EnemyMissile : MonoBehaviour
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    private void SplitMissil()
+    {
+        float yValue = Camera.main.ViewportToWorldPoint(new Vector3(0, -25f, 0)).y;
+        if(transform.position.y >= yValue)
+        {
+            myGameController.enemyMissilesLeft++;
+            Instantiate(missilePrefab, transform.position, Quaternion.identity);
+        }
+
     }
 }

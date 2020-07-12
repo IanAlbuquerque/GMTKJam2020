@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     public int currentMissilesLoaded = 0;
     public int playerMissilesLeft = 30;
     public int enemyMissilesThisRound = 20;
-    private int enemyMissilesLeft = 0;
+    public int enemyMissilesLeft = 0;
     [SerializeField] private int missileEndOfRound = 5;
     [SerializeField] private int citiesEndOfRound = 100;
 
