@@ -6,7 +6,7 @@ public class PlayerMissileController : MonoBehaviour
 {
 
     public Vector2 target;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] public float speed = 5f;
     [SerializeField] GameObject explosionPrefab;
 
     // Start is called before the first frame update
@@ -24,5 +24,13 @@ public class PlayerMissileController : MonoBehaviour
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    public void AddVelocity()
+    {
+        var velocity = speed;
+        velocity = velocity + 5f;
+        speed = velocity;
+        Debug.Log("FUNCIONOU MARIA?");
     }
 }
