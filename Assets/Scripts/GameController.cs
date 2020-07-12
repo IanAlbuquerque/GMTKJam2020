@@ -7,6 +7,12 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     EnemyMissileSpawner myEnemyMissileSpawner;
+    PlayerMissileController myPlayerControllerSpeed;
+    selfDestroy explosionTime;
+
+    public static float speedModifier = 0;
+
+    public static float explosionModifier = 0f;
 
     [SerializeField] private GameObject EndPainel;
 
@@ -19,14 +25,21 @@ public class GameController : MonoBehaviour
     [SerializeField] private float enemyMissileSpeedMultiplier = .25f;
 
     public int currentMissilesLoaded = 0;
-    public int playerMissilesLeft = 30;
+    public int playerMissilesLeft;
     public int enemyMissilesThisRound = 20;
     public int enemyMissilesLeft = 0;
     [SerializeField] private int missileEndOfRound = 5;
     [SerializeField] private int citiesEndOfRound = 100;
 
+    //mods
+    float delay;
+
+    int maxAmmo;
+
+
+
     //Score values
-    private int missileDestroyedPoints = 25;
+    private int missileDestroyedPoints = 20;
 
     [SerializeField] private TextMeshProUGUI myScoreText;
     [SerializeField] private TextMeshProUGUI myLevelText;
@@ -49,6 +62,7 @@ public class GameController : MonoBehaviour
         playerMissilesLeft -= 10;
 
         myEnemyMissileSpawner = GameObject.FindObjectOfType<EnemyMissileSpawner>();
+        //myPlayerController = GetComponent<PlayerMissileController>();
 
         UpdateScoreText();
         UpdateLevelText();
@@ -73,12 +87,33 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void AddMissile()
+    public void AddMissileAmmo()
     {
-        var totalmissile = playerMissilesLeft;
-        totalmissile = totalmissile + 20;
-        playerMissilesLeft = totalmissile;
-        UpdatecurrentMissileLoadedText();
+        maxAmmo += 2;
+        Time.timeScale = 1;
+        EndPainel.SetActive(false);
+    }
+
+    public void PlayerAddSpeed()
+    {
+        GameController.speedModifier += 1;
+        Time.timeScale = 1;
+        EndPainel.SetActive(false);
+    }
+
+    public void DelayMonsters()
+    {
+        delay = 0.2f;
+        myEnemyMissileSpawner.delayBetweenMissiles += delay;
+        Time.timeScale = 1;
+        EndPainel.SetActive(false);
+    }
+
+    public void GreaterExplosion()
+    {
+        GreaterExplosion
+        explosionTime.destroyTime += .2f;
+        Time.timeScale = 1;
         EndPainel.SetActive(false);
     }
 
@@ -140,7 +175,8 @@ public class GameController : MonoBehaviour
 
     public void MissileLauncherHit()
     {
-        playerMissilesLeft -= 10;
+        //playerMissilesLeft -= 10;
+
         if(playerMissilesLeft >= 10)
         {
             currentMissilesLoaded = 10;
@@ -166,7 +202,8 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         EndPainel.SetActive(true);
-        int missileBonus = (playerMissilesLeft + currentMissilesLoaded) * missileEndOfRound;
+        Time.timeScale = 0;
+        int missileBonus = (playerMissilesLeft + currentMissilesLoaded) + missileEndOfRound;
 
         CasaController[] casas = GameObject.FindObjectsOfType<CasaController>();
         int cityBonus = casas.Length * citiesEndOfRound;
@@ -175,27 +212,27 @@ public class GameController : MonoBehaviour
 
         if (level >= 3 && level < 5)
         {
-            totalBonus *= 2;
+            totalBonus *= 1;
         }
 
         else if (level >= 5 && level < 7)
         {
-            totalBonus *= 3;
+            totalBonus *= 2;
         }
 
         else if (level >= 7 && level < 9)
         {
-            totalBonus *= 4;
+            totalBonus *= 3;
         }
 
         else if (level >= 9 && level < 11)
         {
-            totalBonus *= 5;
+            totalBonus *= 4;
         }
 
         else if (level >= 11)
         {
-            totalBonus *= 6;
+            totalBonus *= 5;
         }
 
 
@@ -227,11 +264,11 @@ public class GameController : MonoBehaviour
         RoundisOver = false;
 
         //new round setting
-        playerMissilesLeft = 30;
-        enemyMissileSpeed *= enemyMissileSpeedMultiplier;
+        playerMissilesLeft = maxAmmo;
+        enemyMissileSpeed += enemyMissileSpeedMultiplier;
 
         currentMissilesLoaded = 10;
-        playerMissilesLeft -= 10;
+        playerMissilesLeft = maxAmmo - 10;
 
         StartRound();
         level++;
