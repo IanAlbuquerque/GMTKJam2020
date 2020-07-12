@@ -7,12 +7,11 @@ using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
     EnemyMissileSpawner myEnemyMissileSpawner;
-    PlayerMissileController myPlayerControllerSpeed;
     selfDestroy explosionTime;
 
-    public static float speedModifier = 0;
+    public static float speedMod = 0;
 
-    public static float explosionModifier = 0f;
+    public static float explosionMod = 0f;
 
     [SerializeField] private GameObject EndPainel;
 
@@ -96,7 +95,7 @@ public class GameController : MonoBehaviour
 
     public void PlayerAddSpeed()
     {
-        GameController.speedModifier += 1;
+        GameController.speedMod += 1;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
     }
@@ -111,7 +110,7 @@ public class GameController : MonoBehaviour
 
     public void GreaterExplosion()
     {
-        explosionTime.destroyTime += .2f;
+        GameController.explosionMod += .2f;
         Time.timeScale = 1;
         EndPainel.SetActive(false);
     }

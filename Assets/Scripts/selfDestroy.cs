@@ -9,7 +9,7 @@ public class selfDestroy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, destroyTime);
+        Destroy(gameObject, (destroyTime + GameController.explosionMod));
     }
 
     // Update is called once per frame
