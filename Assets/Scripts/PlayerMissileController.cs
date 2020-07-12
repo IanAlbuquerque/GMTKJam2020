@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMissileController : MonoBehaviour
 {
 
-    private Vector2 target;
+    public Vector2 target;
     [SerializeField] private float speed = 5f;
     [SerializeField] GameObject explosionPrefab;
 
