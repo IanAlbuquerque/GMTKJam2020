@@ -84,7 +84,7 @@ public class GameController : MonoBehaviour
 
     public void UpdateMissileLeftText()
     {
-        myMissileLeftText.text = "Missiles Left: " + playerMissilesLeft;
+        myMissileLeftText.text = playerMissilesLeft.ToString();
         UpdatecurrentMissileLoadedText();
     }
 
@@ -95,7 +95,7 @@ public class GameController : MonoBehaviour
 
     public void UpdatecurrentMissileLoadedText()
     {
-        currentMissilesLoadedLeftText.text = "Missile Loaded: " + currentMissilesLoaded;
+        currentMissilesLoadedLeftText.text = currentMissilesLoaded.ToString();
     }
 
     public void UpdateScoreText()
