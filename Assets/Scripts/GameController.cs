@@ -73,6 +73,15 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void AddMissile()
+    {
+        var totalmissile = playerMissilesLeft;
+        totalmissile = totalmissile + 20;
+        playerMissilesLeft = totalmissile;
+        UpdatecurrentMissileLoadedText();
+        EndPainel.SetActive(false);
+    }
+
     public void UpdateMissileLeftText()
     {
         myMissileLeftText.text = "Missiles Left: " + playerMissilesLeft;
@@ -197,14 +206,23 @@ public class GameController : MonoBehaviour
         score += totalBonus;
         UpdateScoreText();
 
+        /*countdownText.text = "8";
+        yield return new WaitForSeconds(1f);
+        countdownText.text = "7";
+        yield return new WaitForSeconds(1f);
+        countdownText.text = "6";
+        yield return new WaitForSeconds(1f);
+        countdownText.text = "5";
+        yield return new WaitForSeconds(1f);
+        countdownText.text = "4";
+        yield return new WaitForSeconds(1f);
         countdownText.text = "3";
         yield return new WaitForSeconds(1f);
         countdownText.text = "2";
         yield return new WaitForSeconds(1f);
         countdownText.text = "1";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1f);*/
 
-        EndPainel.SetActive(false);
 
         RoundisOver = false;
 
