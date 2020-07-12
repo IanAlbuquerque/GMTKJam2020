@@ -25,12 +25,4 @@ public class PlayerMissileController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public void AddVelocity()
-    {
-        var velocity = speed;
-        velocity = velocity + 5f;
-        speed = velocity;
-        Debug.Log("FUNCIONOU MARIA?");
-    }
 }
